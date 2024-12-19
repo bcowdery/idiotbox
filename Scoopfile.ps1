@@ -24,7 +24,7 @@ scoop install 1password-cli act gh jq
 
 # applications
 scoop bucket add extras
-scoop install gitkraken notion postman powertools spotify slack vscode
+scoop install gitkraken notion postman powertoys spotify slack vscode
 
 # # non-portable windows applications (requires admin privileges)
 # # @see https://github.com/TheRandomLabs/scoop-nonportable/tree/master/bucket

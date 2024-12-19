@@ -6,7 +6,7 @@
 scoop update
 
 # run all the commands in the scoopfile
-Write-Host "📦 Installing Scoop packages..."
+Write-Host "Installing Scoop packages..."
 
 .\Scoopfile.ps1
 
@@ -16,10 +16,10 @@ scoop cleanup -a
 
 # copy all files prefixed with '.' to the home directory
 # exclude the .git directory and this repos .gitignore file
-Write-Host "📄 Copying dotfiles to the home directory..."
+Write-Host "Copying dotfiles to the home directory..."
 
 Get-ChildItem -Path $PSScriptRoot -Filter ".*" -Exclude ".git,.gitignore" | ForEach-Object {
 	Copy-Item -Path $_.FullName -Destination $env:USERPROFILE -Force
 }
 
-Write-Host "Done 🎉"
+Write-Host "Done."
