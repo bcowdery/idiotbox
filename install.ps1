@@ -2,7 +2,8 @@
 # Author: Brian Cowdery
 # Last Updated: 2021-09-26
 
-# check if Scoop is installed
+
+# install scoop if it doesn't exist
 if ($null -eq (Get-Command "scoop" -ErrorAction SilentlyContinue)) {
 	Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
 	Invoke-RestMethod -Uri https://get.scoop.sh | Invoke-Expression
@@ -22,13 +23,23 @@ Get-ChildItem -Path $PSScriptRoot -Filter ".*" -Exclude ".git,.gitignore" | ForE
 }
 
 # Configure windows explorer settings
-# show hidden files, full path in title bar etc.
-Write-Host "Setting Windows Explorer settings..."
+# @see https://learn.microsoft.com/en-us/windows/apps/develop/settings/settings-common
+# @see https://learn.microsoft.com/en-us/windows/apps/develop/settings/settings-windows-11
+Write-Host "Configuring Windows Explorer settings..."
 
 $key = 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced'
-Set-ItemProperty $key Hidden 1
-Set-ItemProperty $key HideFileExt 0
-Set-ItemProperty $key ShowSuperHidden 1
+
+Set-ItemProperty $key Hidden 1			          # show hidden files
+Set-ItemProperty $key HideFileExt 0		          # show all file extensions
+Set-ItemProperty $key ShowSuperHidden 0           # show system files
+Set-ItemProperty $key NavPaneShowAllFolders 1     # show all folders in navigation pane
+Set-ItemProperty $key Start_Layout 1  			  # more pins, less recommendations
+Set-ItemProperty $key Start_IrisRecommendations 0 # disable recommendations
+Set-ItemProperty $key Start_TrackDocs 0           # disable recent documents
+
 Stop-Process -processname explorer
+
+# Add a shim for the idiotbox bash script
+scoop shim add idiotbox "$PSScriptRoot/bin/idiotbox.sh"
 
 Write-Host "Done."
