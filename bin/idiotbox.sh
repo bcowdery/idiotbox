@@ -1,4 +1,12 @@
-#!/bin/bash
+#!/usr/bin/env bash
+#
+# Idiotbox is a tool for managing my Windows machine.
+#
+# It uses Scoop to install and manage software and dotfiles.
+#
+# @see https://scoop.sh
+#
+
 
 # Get the directory where the script is located and move to its parent
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
@@ -15,7 +23,7 @@ function edit_command() {
   local filename="$1"
 
   if [ -z "$filename" ]; then
-    filename="Scoopfile"
+    filename="Scoopfile.ps1"
   fi
 
   # edit the file using EDITOR or vim
@@ -46,8 +54,6 @@ function update_command() {
             cp -f "$file" "$HOME/"
         fi
     done
-
-    echo -e "\033[32mDone 💚\033[0m"
 }
 
 # Command redirect to git for repository operations
@@ -55,6 +61,7 @@ function repo_command() {
     git "$@"
 }
 
+# Command to show help text
 function show_help() {
     echo "Usage: $0 <command>"
     echo ""
