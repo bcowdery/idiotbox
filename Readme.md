@@ -1,57 +1,67 @@
-Dotfiles
+Idiotbox
 ========
 
-My .dotfiles, configurations and unattended software installs for Windows.
+😶Idiotbox is a super lightweight helper script to install and configure my Windows environment.
 
+The idiot can:
 * Install the [Scoop](https://scoop.sh) package manager
 * Install [Nerd Fonts](https://www.nerdfonts.com/)
 * Install [Starship.rs](https://starship.rs/) and console themes
 * Install python, nodejs, dev tools and other applications
-* Copys all .dotfiles to the user $HOME directory
+* Manage Bash configuration .dotfiles in the users $HOME directory
 
 
 # Installation
 
-You can clone the repository wherever you want, although `~/.dotfiles` is preferred. The [install.ps1](install.ps1) script will pull in the latest version, install all the software and copy dotfiles to their new $HOME.
+You can clone the repository wherever you want, although `~/.idiotbox` is preferred. 
+The `install.ps1` script will configure the machine and add the `idiotbox` command to the path.
 
 ```
-git clone https://github.com/bcowdery/dotfiles-win.git ~.dotfiles && ~/.dotfiles/install.ps1
+git clone https://github.com/bcowdery/idiotbox.git ~/.idiotbox && ~/.idiotbox/install.ps1
 ```
 
-## Staying up to date
+## Commands
 
-You can update your installation at any time by running the install script again.
-
-If you prefer to only run software updates (ignoring windows explorer and other machine settings) you can run the [update.ps1](update.ps1) script instead.
+Run `idiotbox edit` to edit the Scoopfile to add or remove applications.
 ```shell
-~/.dotfiles/update.sh
+$ idiotbox edit
 ```
 
-Alternativley, you can just run `scoop update` to update all your software:
+You can optionally specify a `.dotfile` in the idiotbox directory to edit. This is useful for making changes to
+aliases, paths, functions or other environment customizations.
 ```shell
-scoop update
-scoop update -a
+$ idiotbox edit .aliases
 ```
 
-
-
-# Extras
-
-If any of these files exist, they will be sourced along with the main `~/.zshrc`. These files provide extension points for the shell environment organized by convention.
-
-- `.path` - Additions to the `$PATH`
-- `.exports` - Export environment variables, feature detection etc.
-- `.aliases` - Aliases for commonly used commands
-- `.functions` - Shell functions
-- `.extra` - User specific extra's that you generally don't want to commit to github
-
-## Path
-
-Here’s an example `~/.path` file that adds `/usr/local/bin` to the `$PATH`:
-
+Run `idiotbox update` to update all installed software and copy any modified `.dotfiles` to your $HOME dir. 
 ```shell
-export PATH="/usr/local/bin:$PATH"
+$ idiotbox update
 ```
+
+
+# Dotfiles
+
+Dotfiles are copied to the user's $HOME directory when the `idiotbox update` command is run. These files are used to
+configure the Bash shell environment and many POSIX compliant applications.
+
+- `.bashrc` - Bash configuration
+- `.vimrc` - ViM configuration
+- `.curlrc` - cURL configuration
+- `.editorconfig` - Editor configuration for consistent code formatting
+- `.gitconfig` - Git configuration
+
+## Extras
+
+Extras are optional includes that you can use to add customizations to your environment.
+
+| File         | Description |
+|--------------|-------------|
+| `.path`      | Additions to the `$PATH` |
+| `.exports`   | Export environment variables, feature detection etc. |
+| `.aliases`   | Aliases for commonly used commands |
+| `.functions` | Shell functions |
+| `.extra`     | User specific extra's that you generally don't want to commit to github |
+
 
 ## Customizations
 
