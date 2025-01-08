@@ -1,5 +1,5 @@
 [push]
-    default = matching
+    default = current
 
 [diff "exif"]
     textconv = exiftool
