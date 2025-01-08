@@ -29,7 +29,7 @@ scoop install 7zip wget
 scoop install starship FiraCode FiraCode-NF Cascadia-Code
 
 # programming languages
-scoop install dotnet-sdk-lts python python311 nodejs-lts
+scoop install dotnet-sdk-lts python python312 nodejs-lts
 
 # cli tools
 scoop install 1password-cli act gh jq

@@ -8,8 +8,8 @@
 #
 
 
-# set the default python version to 3.11
-scoop reset python311
+# set the default python version to 3.12
+scoop reset python312
 
 # set the startship preset
 starship preset nerd-font-symbols -o ~/.config/starship.toml
