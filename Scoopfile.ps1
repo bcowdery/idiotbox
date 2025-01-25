@@ -1,22 +1,30 @@
 # Scoopfile
 #
-# Installs software using Scoop package manager. 
+# Installs software using Scoop package manager.
 #
 # @see https://scoop.sh
 #
 
+$package = [char]::ConvertFromUtf32(0x1F4E6)
+
+Write-Host ""
+Write-Host "$package Installing Scoop packages..."
+
 
 # Extras bucket is for software that doesn't fit in the main bucket (non cli-apps)
 # @see https://github.com/ScoopInstaller/Extras/tree/master/bucket
-scoop bucket add extras *> $null
+scoop bucket add extras --quiet
 
 # Versions bucket is for software that has multiple versions (like python and nodejs)
 # @see https://github.com/ScoopInstaller/Versions/tree/master/bucket
-scoop bucket add versions *> $null
+scoop bucket add versions --quiet
 
 # Nerd Fonts bucket is for patched fonts with icons
 # @see https://github.com/matthewjberger/scoop-nerd-fonts/tree/master/bucket
-scoop bucket add nerd-fonts *> $null
+scoop bucket add nerd-fonts --quiet
+
+# update manifests
+scoop update --quiet
 
 # core utils
 scoop install 7zip wget
@@ -32,7 +40,7 @@ scoop install starship FiraCode FiraCode-NF Cascadia-Code
 scoop install dotnet-sdk-lts python python312 nodejs-lts
 
 # cli tools
-scoop install 1password-cli act gh jq
+scoop install 1password-cli act gh jq ngrok
 
 # applications
-scoop install discord gitkraken notion postman powertoys spotify slack vscode
+scoop install discord notion notepadplusplus postman powertoys rider spotify slack vscode wireshark
