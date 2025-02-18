@@ -1,3 +1,5 @@
+#!/usr/bin/env pwsh
+#
 # Scoopfile
 #
 # Installs software using Scoop package manager.
@@ -40,7 +42,7 @@ scoop install starship FiraCode FiraCode-NF Cascadia-Code
 scoop install dotnet-sdk-lts python python312 nodejs-lts
 
 # cli tools
-scoop install 1password-cli act gh jq ngrok
+scoop install 1password-cli act gh jq k6 ngrok
 
 # applications
-scoop install discord notion notepadplusplus postman powertoys rider spotify slack vscode wireshark
+scoop install notepadplusplus postman powertoys rider slack vscode wireshark

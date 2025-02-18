@@ -37,10 +37,9 @@ if ($null -eq (Get-Command "scoop" -ErrorAction SilentlyContinue)) {
 # install and configure software
 .\Dotfiles.ps1
 .\Scoopfile.ps1
+.\Scoopfile_post-install.ps1
 .\Wingetfile.ps1
-
-# post installation tasks (one-time setup)
-.\Post-Install.ps1
+.\Wingetfile_post-install.ps1
 
 # install an optional shim for the idiotbox bash script
 Write-Host ""
