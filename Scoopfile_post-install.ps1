@@ -14,8 +14,5 @@ $folder = [char]::ConvertFromUtf32(0x1F4C1)
 Write-Host ""
 Write-Host "$sparkles Running post-install commands..."
 
-# set the default python version to 3.12
-scoop reset python312
-
 # set the startship preset
 starship preset nerd-font-symbols -o ~/.config/starship.toml

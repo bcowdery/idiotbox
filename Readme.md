@@ -22,20 +22,30 @@ git clone https://github.com/bcowdery/idiotbox.git ~/.idiotbox && ~/.idiotbox/in
 
 ## Commands
 
+Run `idiotbox configure` after the initial install to set up language runtime versions via mise.
+```shell
+$ idiotbox configure
+```
+
 Run `idiotbox edit` to edit the Scoopfile to add or remove applications.
 ```shell
 $ idiotbox edit
 ```
 
-You can optionally specify a `.dotfile` in the idiotbox directory to edit. This is useful for making changes to
-aliases, paths, functions or other environment customizations.
+You can optionally specify a `.dotfile` or installer target to edit. Use `scoop`, `winget`, or `mise` to open the respective file.
 ```shell
 $ idiotbox edit .aliases
+$ idiotbox edit mise
 ```
 
-Run `idiotbox update` to update all installed software and copy any modified `.dotfiles` to your $HOME dir. 
+Run `idiotbox update` to update all installed software and copy any modified `.dotfiles` to your $HOME dir.
 ```shell
 $ idiotbox update
+```
+
+You can optionally specify a target to update only a specific installer.
+```shell
+$ idiotbox update mise
 ```
 
 
@@ -54,13 +64,14 @@ configure the Bash shell environment and many POSIX compliant applications.
 
 Extras are optional includes that you can use to add customizations to your environment.
 
-| File         | Description |
-|--------------|-------------|
-| `.path`      | Additions to the `$PATH` |
-| `.exports`   | Export environment variables, feature detection etc. |
-| `.aliases`   | Aliases for commonly used commands |
-| `.functions` | Shell functions |
-| `.extra`     | User specific extra's that you generally don't want to commit to github |
+| File            | Description |
+|-----------------|-------------|
+| `.path`         | Additions to the `$PATH` |
+| `.exports`      | Export environment variables, feature detection etc. |
+| `.aliases`      | Aliases for commonly used commands |
+| `.functions`    | Shell functions |
+| `.extra`        | User specific extra's that you generally don't want to commit to github |
+| `.tool-versions`| mise language runtime versions (python, node, dotnet) |
 
 
 ## Customizations

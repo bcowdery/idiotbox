@@ -1,6 +1,9 @@
 # starship shell prompts
 eval "$(starship init bash)"
 
+# mise version manager
+eval "$(mise activate bash)"
+
 # start ssh agent and unlock keys
 env=~/.ssh/agent.env
 

@@ -6,28 +6,37 @@
 # clone the repository and run the 'install.ps1' script.
 #
 
+# this script lives in ./bin/
+# resolve the path to parent directory where the installer files live
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+PARENT_DIR="$(dirname "$SCRIPT_DIR")"
+
+source "$PARENT_DIR/lib/mise.sh"
+
 # installer scripts
 DOT_FILE="Dotfiles.ps1"
 SCOOP_FILE="Scoopfile.ps1"
 WINGET_FILE="Wingetfile.ps1"
+MISE_FILE=".tool-versions"
 
 # help message
 function show_help() {
     echo "Usage: $(basename $0) <command> [options]"
     echo ""
     echo "Available commands:"
-    echo "  edit    - Edit an installer file using the EDITOR"
-    echo "  update  - Update all apps and dotfiles listed in the installer files"
-    echo "  help    - Show this help message"
+    echo "  configure - Configure language versions via mise"
+    echo "  edit      - Edit an installer file using the EDITOR"
+    echo "  update    - Update all apps and dotfiles listed in the installer files"
+    echo "  help      - Show this help message"
 	echo ""
 	echo "Options: "
-	echo "  Use 'edit scoop' or 'edit winget' to edit the app manifest for a specific installer."
-	echo "  Use 'update scoop', 'update winget', or 'update dotfiles' to run a specific installer."
+	echo "  Use 'edit scoop', 'edit winget', or 'edit mise' to edit the app manifest for a specific installer."
+	echo "  Use 'update scoop', 'update winget', 'update dotfiles', or 'update mise' to run a specific installer."
 }
 
 # Edit a file using the configured EDITOR (default to vim).
 #
-# Accepts a filename as an argument, or either 'scoop' or 'winget' to
+# Accepts a filename as an argument, or either 'scoop', 'winget', or 'mise' to
 # edit the respective installer files. If no argument is provided, the
 # current directory will be opened in the editor.
 #
@@ -35,7 +44,7 @@ function show_help() {
 function edit_command() {
     local filename="$1"
 
-    # check if the filename is 'scoop' or 'winget'
+    # check if the filename is 'scoop', 'winget', or 'mise'
 	# default to the current directory if not set
 	if [ -z "$filename" ]; then
 		filename="."
@@ -44,8 +53,10 @@ function edit_command() {
         filename="$SCOOP_FILE"
 
 	elif [ "$filename" == "winget" ]; then
-
         filename="$WINGET_FILE"
+
+	elif [ "$filename" == "mise" ]; then
+        filename="$MISE_FILE"
     fi
 
     # edit the file using configured EDITOR
@@ -59,18 +70,19 @@ function edit_command() {
 
 # Update installers, apps, and dotfiles.
 #
-# Accepts an installer as an argument, either 'scoop', 'winget', or 'dotfiles'. If no
+# Accepts an installer as an argument, either 'scoop', 'winget', 'dotfiles', or 'mise'. If no
 # argument is provided, all installers will be updated.
 #
 # @param $1 installer - the installer to update
 function update_command() {
     local installer="$1"
 
-    # check if the installer is 'scoop' or 'winget' or 'dotfiles'
+    # check if the installer is 'scoop' or 'winget' or 'dotfiles' or 'mise'
 	if [ -z "$installer" ]; then
 		update_scoop
 		update_winget
 		update_dotfiles
+		update_mise
 
 	elif [ "$installer" == "scoop" ]; then
         update_scoop
@@ -81,8 +93,11 @@ function update_command() {
 	elif [ "$installer" == "dotfiles" ]; then
 		update_dotfiles
 
+	elif [ "$installer" == "mise" ]; then
+		update_mise
+
 	else
-        echo "Error: Unknown source '$filename'"
+        echo "Error: Unknown source '$installer'"
         return;
     fi
 }
@@ -99,15 +114,13 @@ function update_dotfiles() {
 	powershell -File $DOT_FILE
 }
 
-# this script lives in ./bin/
-# resolve the path to parent directory where the installer files
-SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-PARENT_DIR="$(dirname "$SCRIPT_DIR")"
-
 cd "$PARENT_DIR" || exit 1
 
 # Run the command
 case "$1" in
+	"configure")
+		configure_mise
+		;;
 	"edit")
 		edit_command "${@:2}"
 		;;
