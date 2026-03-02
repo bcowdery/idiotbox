@@ -3,3 +3,8 @@
 # Additional paths
 # export PATH="/usr/local/bin:$PATH"
 export PATH="$HOME/.local/bin:$PATH"
+
+# mise language version manager (shims)
+# Use shims instead of `mise activate` — activate generates Windows-style
+# semicolon-separated PATH that bash treats as a single broken entry.
+export PATH="$HOME/AppData/Local/mise/shims:$PATH"

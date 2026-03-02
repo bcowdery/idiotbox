@@ -1,3 +1,7 @@
+[user]
+    name = Brian Cowdery
+    email = brian@thebeardeddeveloper.co
+
 [push]
     default = current
 
